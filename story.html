@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>A Little Story for You</title>
+    <link rel="stylesheet" href="prposal.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="masthead">
+        <a class="wordmark" href="index.html">A little question</a>
+        <span class="step">Our story</span>
+      </header>
+      <section class="experience" aria-labelledby="page-title">
+        <div class="artwork">
+          <div class="panda-scene" role="img" aria-label="Two cuddling pandas surrounded by floating red hearts">
+            <span class="scene-heart heart-one" aria-hidden="true"></span>
+            <span class="scene-heart heart-two" aria-hidden="true"></span>
+            <span class="scene-heart heart-three" aria-hidden="true"></span>
+            <span class="scene-sparkle sparkle-one" aria-hidden="true"></span>
+            <span class="scene-sparkle sparkle-two" aria-hidden="true"></span>
+            <div class="panda-pair" aria-hidden="true">
+              <div class="panda panda-left">
+                <span class="panda-ear ear-left"></span><span class="panda-ear ear-right"></span>
+                <span class="panda-body"><span class="panda-belly"></span></span>
+                <span class="panda-leg leg-left"></span><span class="panda-leg leg-right"></span>
+                <span class="panda-arm arm-left"></span>
+                <span class="panda-head">
+                  <span class="panda-patch patch-left"><span class="panda-eye"></span></span>
+                  <span class="panda-patch patch-right"><span class="panda-eye"></span></span>
+                  <span class="panda-blush blush-left"></span><span class="panda-blush blush-right"></span>
+                  <span class="panda-nose"></span><span class="panda-mouth"></span>
+                </span>
+              </div>
+              <div class="panda panda-right">
+                <span class="panda-ear ear-left"></span><span class="panda-ear ear-right"></span>
+                <span class="panda-body"><span class="panda-belly"></span></span>
+                <span class="panda-leg leg-left"></span><span class="panda-leg leg-right"></span>
+                <span class="panda-arm arm-right"></span>
+                <span class="panda-head">
+                  <span class="panda-patch patch-left"><span class="panda-eye"></span></span>
+                  <span class="panda-patch patch-right"><span class="panda-eye"></span></span>
+                  <span class="panda-blush blush-left"></span><span class="panda-blush blush-right"></span>
+                  <span class="panda-nose"></span><span class="panda-mouth"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copy">
+          <p class="eyebrow">One page at a time</p>
+          <h1 id="page-title">A little story for you.</h1>
+          <p class="question" id="story-intro">There are a few things I have been meaning to tell you.</p>
+          <div class="story-progress" role="progressbar" aria-label="Story progress" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0">
+            <span class="story-progress-fill" id="story-progress-fill"></span>
+          </div>
+          <span class="story-count" id="story-count">0 of 5 little notes</span>
+          <div class="story-log" id="story-log" aria-live="polite" aria-relevant="additions"></div>
+          <p class="story-conclusion" id="story-conclusion" hidden>And this is only the beginning of our story.</p>
+          <div class="actions">
+            <button class="button" id="next-note" type="button">Read my little notes</button>
+            <a class="button secondary" id="back-to-beginning" href="index.html" hidden>Back to our beginning</a>
+          </div>
+        </div>
+      </section>
+      <footer class="footer"><span>Made with a little courage</span><span>And a lot of love</span></footer>
+    </main>
+    <script>
+      const notes = [
+        "Your presence transforms the mundane into something quietly extraordinary.",
+        "Your laughter lingers in my mind like a beautiful, irreplaceable melody.",
+        "Even silence feels intimate when I’m sharing it with you.",
+        "With you, every fleeting moment becomes a cherished fragment of eternity.",
+        "If you can choose me among millions, I’d choose you among countless souls—without hesitation, without comparison."
+      ];
+      const log = document.getElementById("story-log");
+      const nextButton = document.getElementById("next-note");
+      const backLink = document.getElementById("back-to-beginning");
+      const progress = document.querySelector(".story-progress");
+      const progressFill = document.getElementById("story-progress-fill");
+      const count = document.getElementById("story-count");
+      const conclusion = document.getElementById("story-conclusion");
+      let currentNote = 0;
+
+      nextButton.addEventListener("click", () => {
+        const note = document.createElement("p");
+        note.className = "story-note";
+        note.textContent = notes[currentNote];
+        log.append(note);
+        currentNote += 1;
+        progress.setAttribute("aria-valuenow", String(currentNote));
+        progressFill.style.width = `${currentNote / notes.length * 100}%`;
+        count.textContent = `${currentNote} of ${notes.length} little notes`;
+
+        if (currentNote === notes.length) {
+          conclusion.hidden = false;
+          nextButton.hidden = true;
+          backLink.hidden = false;
+        } else {
+          nextButton.textContent = "Read the next note";
+        }
+      });
+    </script>
+  </body>
+</html>
